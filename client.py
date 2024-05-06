@@ -69,7 +69,10 @@ if __name__ == '__main__':
         logging.debug(f'min: {min}, max: {max}, step: {step}')
         procs = []
         count = 0
-        for timeout in range(min,max+1,step):
+        attempt = list(range(min,max+1,step))
+        if attempt[-1] != max:
+            attempt.append(max)
+        for timeout in attempt:
             count += 1
             logging.debug(f'start process with timeout: {timeout}')
             target = udp_detect if args.udp else tcp_detect
